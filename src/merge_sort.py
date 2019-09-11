@@ -24,3 +24,13 @@ def merge_lists(left: List[int], right: List[int]) -> List[int]:
 
     if right_index == right_len:
         return [*result, *left[left_index:]]
+
+
+def merge_sort(list_to_sort: List[int]) -> List[int]:
+    if len(list_to_sort) <= 1:
+        return list_to_sort
+
+    middle_index = int(len(list_to_sort) / 2)
+    left = list_to_sort[:middle_index]
+    right = list_to_sort[middle_index:]
+    return merge_lists(merge_sort(left), merge_sort(right))
