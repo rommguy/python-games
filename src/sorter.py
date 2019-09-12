@@ -2,6 +2,8 @@
 from typing import List
 from functools import reduce
 from math import floor
+from multiprocessing import Pool
+import time
 
 
 def merge_lists(left: List[int], right: List[int]) -> List[int]:
@@ -12,20 +14,20 @@ def merge_lists(left: List[int], right: List[int]) -> List[int]:
     left_len = len(left)
     while left_index < left_len and right_index < right_len:
         if left[left_index] <= right[right_index]:
-            result = [*result, left[left_index]]
+            result.append(left[left_index])
             left_index += 1
         else:
-            result = [*result, right[right_index]]
+            result.append(right[right_index])
             right_index += 1
 
     if left_index == left_len and right_index == right_len:
         return result
 
     if left_index == left_len:
-        return [*result, *right[right_index:]]
+        return result + right[right_index:]
 
     if right_index == right_len:
-        return [*result, *left[left_index:]]
+        return result + left[left_index:]
 
 
 def merge_sort(list_to_sort: List[int]) -> List[int]:
@@ -46,8 +48,25 @@ def bucket_sort(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
 
     for i in list_to_sort:
         bucket_index = floor(num_of_buckets * i / (max_item + 1))
-        buckets[bucket_index] = buckets[bucket_index] + [i]
+        buckets[bucket_index].append(i)
 
     for i in range(num_of_buckets):
         buckets[i] = merge_sort(buckets[i])
-    return reduce(lambda accu, bucket: [*accu, *bucket], buckets, [])
+    return reduce(lambda accu, bucket: accu + bucket, buckets, [])
+
+
+def bucket_sort_multiprocess(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
+    if len(list_to_sort) == 0:
+        return list_to_sort
+    buckets = [[] for i in range(num_of_buckets)]
+    max_item = max(list_to_sort)
+
+    start = time.time()
+    for i in list_to_sort:
+        bucket_index = floor(num_of_buckets * i / (max_item + 1))
+        buckets[bucket_index].append(i)
+    print("Done sorting to buckets", time.time() - start)
+
+    with Pool(num_of_buckets) as p:
+        results = p.map(merge_sort, buckets)
+        return reduce(lambda accu, bucket: accu + bucket, results, [])

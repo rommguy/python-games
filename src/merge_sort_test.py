@@ -1,5 +1,6 @@
-from src.sorter import merge_lists, merge_sort, bucket_sort
+from src.sorter import merge_lists, merge_sort, bucket_sort, bucket_sort_multiprocess
 from src.int_list_generator import generate_int_list
+import time
 
 
 def test_merge_lists():
@@ -21,3 +22,18 @@ def test_bucket_sort():
     list_to_sort = generate_int_list(10000)
     assert bucket_sort([], 10) == [], "Should return an empty list"
     assert bucket_sort(list_to_sort, 3) == sorted(list_to_sort), "Should sort the given list"
+
+    assert bucket_sort_multiprocess(list_to_sort, 10) == sorted(list_to_sort), "Should sort the given list"
+
+
+def test_bucket_sort_multiprocess():
+    start = time.time()
+    print("Start test - multi")
+    list_to_sort = generate_int_list(100000)
+    bucket_sort_multiprocess(list_to_sort, 12)
+    print("End test - multi", time.time() - start)
+
+    start_single = time.time()
+    print("Start test - single")
+    # bucket_sort(list_to_sort, 12)
+    print("End test - single", time.time() - start_single)
