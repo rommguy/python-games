@@ -1,4 +1,5 @@
-from src.merge_sort import merge_lists, merge_sort
+from src.sorter import merge_lists, merge_sort, bucket_sort
+from src.int_list_generator import generate_int_list
 
 
 def test_merge_lists():
@@ -14,3 +15,9 @@ def test_merge_sort():
     list_to_sort = [7, 1, 2, 9, 10, 5, 5, 6]
     assert merge_sort([]) == [], "Should return an empty list"
     assert merge_sort(list_to_sort) == sorted(list_to_sort), "Should sort the given list"
+
+
+def test_bucket_sort():
+    list_to_sort = generate_int_list(10000)
+    assert bucket_sort([], 10) == [], "Should return an empty list"
+    assert bucket_sort(list_to_sort, 3) == sorted(list_to_sort), "Should sort the given list"

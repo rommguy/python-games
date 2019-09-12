@@ -1,5 +1,7 @@
 # First merge sort implementation
 from typing import List
+from functools import reduce
+from math import floor
 
 
 def merge_lists(left: List[int], right: List[int]) -> List[int]:
@@ -34,3 +36,18 @@ def merge_sort(list_to_sort: List[int]) -> List[int]:
     left = list_to_sort[:middle_index]
     right = list_to_sort[middle_index:]
     return merge_lists(merge_sort(left), merge_sort(right))
+
+
+def bucket_sort(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
+    if len(list_to_sort) == 0:
+        return list_to_sort
+    buckets = [[]] * num_of_buckets
+    max_item = max(list_to_sort)
+
+    for i in list_to_sort:
+        bucket_index = floor(num_of_buckets * i / (max_item + 1))
+        buckets[bucket_index] = buckets[bucket_index] + [i]
+
+    for i in range(num_of_buckets):
+        buckets[i] = merge_sort(buckets[i])
+    return reduce(lambda accu, bucket: [*accu, *bucket], buckets, [])
