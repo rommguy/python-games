@@ -1,2 +1,19 @@
 [tool.black]
 line-length = 120
+
+
+[tool.poetry]
+name = "python_games"
+version = "0.1.0"
+description = "Play with lint, tests and type hints validations"
+authors = ["Guy Romm"]
+readme = 'README.md'
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2.0"
+black = {version = "*", allows-prereleases = true}
+mypy = "^0.730.0"
+flake8 = "^3.7"

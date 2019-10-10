@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import time
 
 
-def merge_lists(left: List[int], right: List[int]) -> List[int]:
+def merge_lists(left: List[int], right: List[int]) -> List[int]:  # type: ignore
     result = []
     left_index = 0
     right_index = 0
@@ -43,7 +43,7 @@ def merge_sort(list_to_sort: List[int]) -> List[int]:
 def bucket_sort(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
     if len(list_to_sort) == 0:
         return list_to_sort
-    buckets = [[]] * num_of_buckets
+    buckets = [[]] * num_of_buckets  # type: ignore
     max_item = max(list_to_sort)
 
     for i in list_to_sort:
@@ -58,7 +58,7 @@ def bucket_sort(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
 def bucket_sort_multiprocess(list_to_sort: List[int], num_of_buckets: int) -> List[int]:
     if len(list_to_sort) == 0:
         return list_to_sort
-    buckets = [[] for i in range(num_of_buckets)]
+    buckets = [[] for i in range(num_of_buckets)]  # type: ignore
     max_item = max(list_to_sort)
 
     start = time.time()
