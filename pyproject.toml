@@ -17,3 +17,5 @@ pytest = "^5.2.0"
 black = {version = "*", allows-prereleases = true}
 mypy = "^0.730.0"
 flake8 = "^3.7"
+flake8-builtins = "^1.4"
+flake8-comprehensions = "^2.2"

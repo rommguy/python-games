@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import time
 
 
-def merge_lists(left: List[int], right: List[int]) -> List[int]:  # type: ignore
+def merge_lists(left: List[int], right: List[int]) -> List[int]:
     result = []
     left_index = 0
     right_index = 0
@@ -28,6 +28,8 @@ def merge_lists(left: List[int], right: List[int]) -> List[int]:  # type: ignore
 
     if right_index == right_len:
         return result + left[left_index:]
+
+    return []
 
 
 def merge_sort(list_to_sort: List[int]) -> List[int]:
