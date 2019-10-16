@@ -1,4 +1,5 @@
-from typing import List, Callable
+from typing import List, Callable, cast
+import psutil
 
 
 def generate_closure_updater() -> Callable[[int], List[int]]:
@@ -13,3 +14,7 @@ def generate_closure_updater() -> Callable[[int], List[int]]:
 
 def increment_num(num: int) -> int:
     return num + 1
+
+
+def count_cpu() -> int:
+    return cast(int, psutil.cpu_count())
